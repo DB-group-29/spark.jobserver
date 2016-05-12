@@ -13,7 +13,7 @@ object CassandraQuery extends SparkCassandraJob {
   override def runJob(cc: CassandraSQLContext, config: Config): Any = {
     // Assuming your request sent a { "query": "..." } in the body:
     val df = cc.sql(config.getString("query"))
-    df.map(_.getValuesMap[Any](List("subreddit", "subreddit_id", "link_id", "id", "parent_id", "name", "author", "body", "ups", "downs", "score"))).collect
+    df.map(_.getValuesMap[Any](List("created_utc", "subreddit", "subreddit_id", "link_id", "id", "parent_id", "name", "author", "body", "ups", "downs", "score"))).collect
     // createResponseFromDataFrame(df) // You should implement this
   }
   override def validate(cc: CassandraSQLContext, config: Config): SparkJobValidation = {
