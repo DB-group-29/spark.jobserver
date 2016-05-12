@@ -1,0 +1,10 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!CassandraQueryJob.scala
+!SparkCassandraJob.scala
+
+# ...even if they are in subdirectories
+!*/
