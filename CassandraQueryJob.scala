@@ -48,8 +48,12 @@ object GetComments extends CassandraQuery {
   override def runJob(cc: CassandraSQLContext, config: Config): Any = {
     var query: String = "SELECT created_utc, subreddit, parent_id, name, author, body, ups, downs, score FROM reddit.comments"
     try {
+      val subreddit: String = config.getString("subreddit")
+      query += " WHERE subreddit = '" + subreddit + "'"
+    } catch { case e: ConfigException => }
+    try {
       val link_id: String = config.getString("link_id")
-      query += " WHERE link_id = '" + link_id + "'"
+      query += " AND link_id = '" + link_id + "'"
     } catch { case e: ConfigException => }
 
     cc.sql(query)
